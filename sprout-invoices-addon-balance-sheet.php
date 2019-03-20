@@ -25,6 +25,20 @@ class si_balance_sheet
 		
 	}
 
+	function register() {
+		add_action( 'admin_menu', array($this, 'admin_menu_page') );
+	}
+
+	public function admin_menu_page() {
+		//add menu page
+		add_menu_page( 'SI Balance sheet', 'Balance Sheet', 'manage_options', 'sa_balance', array($this, 'admin_menu_index'), 'dashicons-media-spreadsheet', null );
+	}
+
+	public function admin_menu_index(){
+		// add template
+		require_once plugin_dir_path( __FILE__ ).'templates/admin/admin.php';
+	}
+
 	function deactivate() {
 
 	}
@@ -36,6 +50,7 @@ class si_balance_sheet
 
 if (class_exists('si_balance_sheet')) {
 	$si_balance_sheet = new si_balance_sheet();
+	$si_balance_sheet->register();
 }
 
 
