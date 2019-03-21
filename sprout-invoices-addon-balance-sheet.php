@@ -22,7 +22,7 @@ Licence: MIT
 class si_balance_sheet
 {
 	function activate() {
-		
+		require_once plugin_dir_path( __FILE__ ).'inc/create_table.php';
 	}
 
 	function register() {
@@ -31,7 +31,7 @@ class si_balance_sheet
 
 	public function admin_menu_page() {
 		//add menu page
-		add_menu_page( 'SI Balance sheet', 'Balance Sheet', 'manage_options', 'sa_balance', array($this, 'admin_menu_index'), 'dashicons-media-spreadsheet', null );
+		add_menu_page( 'SI Balance sheet', 'Balance Sheet', 'manage_options', 'sa_balance', array($this, 'admin_menu_index'), 'dashicons-media-spreadsheet', 25 );
 	}
 
 	public function admin_menu_index(){
