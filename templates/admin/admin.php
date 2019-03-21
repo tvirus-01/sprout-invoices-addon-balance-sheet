@@ -1,3 +1,8 @@
+
+<?php include plugin_dir_path( __FILE__ ).'../../modules/client.php'; ?>
+<?php include plugin_dir_path( __FILE__ ).'../../modules/invoice.php'; ?>
+<?php include plugin_dir_path( __FILE__ ).'../../modules/payment.php'; ?>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style type="text/css">
@@ -31,5 +36,3 @@
 		</div>
 	</div>
 </div>
-
-<?php include plugin_dir_path( __FILE__ ).'../../modules/client.php'; ?>

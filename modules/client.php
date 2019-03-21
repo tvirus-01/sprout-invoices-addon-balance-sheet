@@ -1,10 +1,5 @@
 <?php
-
-global $wpdb;
-$prefix = $wpdb->prefix;
-$tbl_posts = "{$prefix}posts";
-$tbl_postmeta = "{$prefix}postmeta";
-$tbl_client = "{$prefix}sibs_client";
+include plugin_dir_path( __FILE__ ).'../inc/wpdb_tbl.php';
 
 $sibs_query1 = "SELECT * FROM `{$tbl_posts}` WHERE post_type = 'sa_client'";
 $sibs_result1 = $wpdb->get_results($sibs_query1);
