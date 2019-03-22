@@ -11,25 +11,15 @@ $tbl_client = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_client`(
 				`client_website` varchar(50) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
-$tbl_invoice = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_invoice`(
+$tbl_sheet = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_sheet`(
 				`id` int(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 				`invoice_id` int(50) NOT NULL,
-				`invoice_name` varchar(100) NOT NULL,
-				`total_amount` int(100) NOT NULL,
-				`deposit_amount` int(100) NOT NULL,
+				`client_id` int(50) NOT NULL,
+				`sibs_key` varchar(100) NOT NULL,
+				`amount` int(100) NOT NULL,
 				`date` varchar(100) NOT NULL,
 				`due_date` varchar(100) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
-$tbl_payment = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_payment`(
-				`id` int(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-				`payment_id` int(50) NOT NULL,
-				`invoice_id` int(50) NOT NULL,
-				`payment_amount` int(150) NOT NULL,
-				`payment_method` varchar(50) NOT NULL,
-				`payment_date` varchar(50) NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=latin1";
-
 $wpdb->query($tbl_client);
-$wpdb->query($tbl_invoice);
-$wpdb->query($tbl_payment);
+$wpdb->query($tbl_sheet);

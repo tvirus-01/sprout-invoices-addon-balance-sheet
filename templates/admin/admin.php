@@ -2,6 +2,7 @@
 <?php include plugin_dir_path( __FILE__ ).'../../modules/client.php'; ?>
 <?php include plugin_dir_path( __FILE__ ).'../../modules/invoice.php'; ?>
 <?php include plugin_dir_path( __FILE__ ).'../../modules/payment.php'; ?>
+<?php $view_page = site_url( 'index.php/si-balance-sheet', null ); ?>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -28,10 +29,16 @@
 			<table class="table table-striped">
 				<tr>
 					<th>Client</th>
+					<th>Address</th>
+					<th>View</th>
 				</tr>
+				<?php foreach ($sibs_result2 as $key) { ?>
 				<tr>
-					<td>mokles</td>
-				</tr>
+					<td><?php echo $key->client_name; ?></td>
+					<td><?php echo $key->client_address; ?></td>
+					<td><a href="<?php echo $view_page.'?cid='.$key->id; ?>" class="btn btn-sm btn-success" target="blank">View</a></td>
+				</tr>		
+				<?php } ?>
 			</table>
 		</div>
 	</div>

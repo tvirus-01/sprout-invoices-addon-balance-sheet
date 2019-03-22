@@ -21,12 +21,22 @@ Licence: MIT
 
 class si_balance_sheet
 {
+	public $templates;
+
 	function activate() {
 		require_once plugin_dir_path( __FILE__ ).'inc/create_table.php';
+		require_once plugin_dir_path( __FILE__ ).'inc/create_page.php';
 	}
 
 	function register() {
 		add_action( 'admin_menu', array($this, 'admin_menu_page') );
+
+		$this->templates =array(
+			'templates/main/si_balancesheet.php' => 'si-balance-sheet'
+		);
+
+		add_filter( 'theme_page_templates', array( $this, 'balancesheet_template' ) );
+		add_filter( 'template_include', array( $this, 'load_balancesheet' ) );
 	}
 
 	public function admin_menu_page() {
@@ -35,7 +45,7 @@ class si_balance_sheet
 	}
 
 	public function admin_menu_index(){
-		// add template
+		// add template, module
 		require_once plugin_dir_path( __FILE__ ).'templates/admin/admin.php';
 	}
 
@@ -46,6 +56,36 @@ class si_balance_sheet
 	function unistall() {
 
 	}
+
+	public function balancesheet_template( $templates ) {
+		$templates = array_merge($templates, $this->templates);
+
+		return $templates;
+	}
+
+	public function load_balancesheet( $template ) {
+		global $post;
+
+		if (!$post) {
+			return $template;
+		}
+
+		$template_name = get_post_meta( $post->ID, '_wp_page_template', true );
+
+		if (!isset($this->templates[$template_name])) {
+			return $template;
+		}
+
+		$file = plugin_dir_path( __FILE__ ) . $template_name;
+
+		if (file_exists($file)) {
+			return $file;
+		}
+
+		return $template;
+
+	}
+
 }
 
 if (class_exists('si_balance_sheet')) {
