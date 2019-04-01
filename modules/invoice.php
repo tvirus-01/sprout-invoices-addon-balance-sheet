@@ -28,16 +28,19 @@ foreach ($inv_result as $key) {
 
 		$due_date = $wpdb->get_row( "SELECT * FROM `{$tbl_postmeta}` WHERE post_id = {$invoice_id} AND meta_key = '_due_date'" );
 		$due_date = $due_date->meta_value;
-		$due_date = date( 'd-m-Y', $due_date );
+		$due_date = date( 'Y-m-d', $due_date );
 
 		//echo '---'.$invoice_id.'---'.$client_id.'---'.$deposit_amount.'---'.$invoice_date.'---'.$due_date.'---'.$total_amount;
 
 		if (!empty($deposit_amount) || $deposit_amount > 0) {
+			$inv_due = $total_amount - $deposit_amount;
 			$wpdb->query("INSERT INTO `{$tbl_sheet}` (`id`, `invoice_id`, `client_id`, `sibs_key`, `amount`, `date`, `due_date`) VALUES (NULL, '{$invoice_id}', '{$client_id}', 'deposit', '{$deposit_amount}', '{$invoice_date}', '{$due_date}')");
-		}
+
+			$wpdb->query("INSERT INTO `{$tbl_sheet}` (`id`, `invoice_id`, `client_id`, `sibs_key`, `amount`, `date`, `due_date`) VALUES (NULL, '{$invoice_id}', '{$client_id}', 'inv', '{$inv_due}', '{$invoice_date}', '{$due_date}')");
+		}else{
 
 		$wpdb->query("INSERT INTO `{$tbl_sheet}` (`id`, `invoice_id`, `client_id`, `sibs_key`, `amount`, `date`, `due_date`) VALUES (NULL, '{$invoice_id}', '{$client_id}', 'inv', '{$total_amount}', '{$invoice_date}', '{$due_date}')");
-
+		}
 	}
 }
 

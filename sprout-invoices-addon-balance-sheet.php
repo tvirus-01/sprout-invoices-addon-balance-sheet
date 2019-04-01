@@ -51,10 +51,24 @@ class si_balance_sheet
 
 	function deactivate() {
 
-	}
+		global $wpdb;
+		$prefix = $wpdb->prefix;
+		$tbl_client = "{$prefix}sibs_client";
+		$tbl_posts = "{$prefix}posts";
+		//delete page
+		//$page = get_posts( 'post_tpe' => 'page', 'post_title' => 'si-balance-sheet' );							
+		$page = $wpdb->get_row( "SELECT * FROM {$tbl_posts} WHERE post_type = 'page' AND post_title = 'si-balance-sheet'" );							
 
-	function unistall() {
+			$post_id = $page->ID;
+			delete_post_meta( $post_id, '_wp_page_template' );
+			delete_post_meta( $post_id, '_edit_lock' );
+			wp_delete_post( $post_id, true );
 
+		//delte table
+
+		$tbl_sheet = "{$prefix}sibs_sheet";
+		$wpdb->query( "DROP TABLE {$tbl_client}" );
+		$wpdb->query( "DROP TABLE {$tbl_sheet}" );
 	}
 
 	public function balancesheet_template( $templates ) {
@@ -101,6 +115,4 @@ register_activation_hook( __FILE__, array($si_balance_sheet, 'activate') );
 
 ############################ Deactivation ############################
 
-register_activation_hook( __FILE__, array($si_balance_sheet, 'deactivate') );
-
-############################ Unistall ############################
+register_deactivation_hook( __FILE__, array($si_balance_sheet, 'deactivate') );

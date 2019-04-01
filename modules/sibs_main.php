@@ -12,7 +12,7 @@ $company_info = explode('"', $company_info);
  $company_city = $company_info[31];
  $company_ps = $company_info[35];
 
-$client_info = $wpdb->get_row( "SELECT * FROM {$tbl_client} WHERE id = {$cid}" );
+$client_info = $wpdb->get_row( "SELECT * FROM {$tbl_client} WHERE client_slug = '{$url_slug}'" );
  $client_id = $client_info->client_id;	
  $client_name = $client_info->client_name;
  $client_address = $client_info->client_address;
@@ -20,3 +20,4 @@ $client_info = $wpdb->get_row( "SELECT * FROM {$tbl_client} WHERE id = {$cid}" )
 
 $sibs_query = "SELECT * FROM {$tbl_sheet} WHERE client_id = {$client_id}";
 $sibs_result = $wpdb->get_results( $sibs_query );
+$sibs_result_chk = $wpdb->num_rows;

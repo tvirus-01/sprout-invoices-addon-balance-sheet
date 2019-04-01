@@ -12,6 +12,10 @@ foreach ($sibs_result1 as $key) {
 	$sibs_result2 = $wpdb->get_results($sibs_query2);
 	$sibs_numrows = $wpdb->num_rows;
 
+	$sibs_str = '1234567890qwertyahgszxhgstedhi';
+	//strlen($str);
+	$sibs_str = str_shuffle($sibs_str);
+
 	if ($sibs_numrows > 0) {
 		//no need to insert already inserted
 	}else{
@@ -31,23 +35,25 @@ foreach ($sibs_result1 as $key) {
 		$client_website = $wpdb->get_row( "SELECT * FROM `{$tbl_postmeta}` WHERE post_id = {$client_id} AND meta_key = '_website'" );
 		$client_website = $client_website->meta_value;
 
-		$wpdb->insert(
-					$tbl_client,
-					array(
-						'id' => null,
-						'client_id' => $client_id,
-						'client_name' => $client_name,
-						'client_address' => $client_address,
-						'client_website' => $client_website
-					),
-					array(
-						'%d',
-						'%d',
-						'%s',
-						'%s',
-						'%s'
-					)
-		);
+		// $wpdb->insert(
+		// 			$tbl_client,
+		// 			array(
+		// 				'id' => null,
+		// 				'client_id' => $client_id,
+		// 				'client_name' => $client_name,
+		// 				'client_address' => $client_address,
+		// 				'client_website' => $client_website
+		// 			),
+		// 			array(
+		// 				'%d',
+		// 				'%d',
+		// 				'%s',
+		// 				'%s',
+		// 				'%s'
+		// 			)
+		// );
+
+		$wpdb->query("INSERT INTO `{$tbl_client}` (`id`, `client_id`, `client_name`, `client_address`, `client_website`, `client_slug`) VALUES (NULL, '{$client_id}', '{$client_name}', '{$client_address}', '{$client_website}', '{$sibs_str}')");
 
 
 	}

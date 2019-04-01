@@ -8,7 +8,8 @@ $tbl_client = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_client`(
 				`client_id` int(50) NOT NULL,
 				`client_name` varchar(100) NOT NULL,
 				`client_address` varchar(150) NOT NULL,
-				`client_website` varchar(50) NOT NULL
+				`client_website` varchar(50) NOT NULL,
+				`client_slug` varchar(50) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 $tbl_sheet = "CREATE TABLE IF NOT EXISTS `{$prefix}sibs_sheet`(
