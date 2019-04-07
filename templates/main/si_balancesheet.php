@@ -14,6 +14,9 @@ $url_slug = substr($_SERVER['REQUEST_URI'],-30);
 
 include plugin_dir_path( __FILE__ ).'../../modules/sibs_main.php';
 
+$sibs_query = "SELECT * FROM {$tbl_sheet} WHERE client_id = {$client_id}";
+$sibs_result = $wpdb->get_results( $sibs_query );
+$sibs_result_chk = $wpdb->num_rows;
 $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key = 'inv' AND client_id = {$client_id}" );
 							
 // echo "<br>";
@@ -100,10 +103,10 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 					<?php echo $transaction;  ?>
 					<?php echo "</td>";  ?>
 					<?php echo "<td>";  ?>
-					<?php echo $amount;  ?>
+					<?php echo $currency_sign . $amount;  ?>
 					<?php echo "</td>";  ?>
 					<?php echo "<td>";  ?>
-					<?php echo $balance;  ?>
+					<?php echo $currency_sign . $balance;  ?>
 					<?php echo "</td>";  ?>
 					<?php echo "</tr>";  ?>
 					<?php } }?>
@@ -120,7 +123,7 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 					<tr>
 						<td>
 							<?php if($balance == 0){echo '0.00';}else{ ?>
-							<?php echo $balance;} ?>	
+							<?php echo $currency_sign . $balance;} ?>	
 						</td>
 						<td>
 							<?php
@@ -162,19 +165,19 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 												$total_due_amount = $due_amount;
 												//echo $days_left;
 												if ($total_due_amount == 0) {
-													echo "0.00";
+													echo $currency_sign . "0.00";
 												}else{
-													echo($total_due_amount);
+													echo($currency_sign . $total_due_amount);
 													$tdm1 = $total_due_amount;
 												}
 											}else{
-												echo "0.00";
+												echo $currency_sign . "0.00";
 											}
 										}else{
-											echo "0.00";
+											echo $currency_sign . "0.00";
 										}
 									}else{
-										echo "0.00";
+										echo $currency_sign . "0.00";
 									}
 								
 							?>							
@@ -219,19 +222,19 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 											if ($pmt < $inv_amount) {
 												$total_due_amount = $due_amount;
 												if ($total_due_amount == 0) {
-													echo "0.00";
+													echo $currency_sign . "0.00";
 												}else{
-													echo($total_due_amount);
+													echo($currency_sign . $total_due_amount);
 													$tdm2 = $total_due_amount;
 												}
 											}else{
-												echo "0.00";
+												echo $currency_sign . "0.00";
 											}
 										}else{
-											echo "0.00";
+											echo $currency_sign . "0.00";
 										}
 									}else{
-										echo "0.00";
+										echo $currency_sign . "0.00";
 									}
 							?>
 						</td>
@@ -273,19 +276,19 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 											if ($pmt < $inv_amount) {
 												$total_due_amount = $due_amount;
 												if ($total_due_amount == 0) {
-													echo "0.00";
+													echo $currency_sign . "0.00";
 												}else{
-													echo($total_due_amount);
+													echo($currency_sign . $total_due_amount);
 													$tdm3 = $total_due_amount;
 												}
 											}else{
-												echo "0.00";
+												echo $currency_sign . "0.00";
 											}
 										}else{
-											echo "0.00";
+											echo $currency_sign . "0.00";
 										}
 									}else{
-										echo "0.00";
+										echo $currency_sign . "0.00";
 									}
 							?>
 								
@@ -332,19 +335,19 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 												$total_due_amount = $due_amount;
 												//echo $days_left;
 													if ($total_due_amount == 0) {
-														echo "0.00";
+														echo $currency_sign . "0.00";
 													}else{
-														echo($total_due_amount);
+														echo($currency_sign . $total_due_amount);
 														$tdm4 = $total_due_amount;
 													}
 											}else{
-												echo "0.00";
+												echo $currency_sign . "0.00";
 											}
 										}else{
-											echo '0.00';
+											echo $currency_sign . '0.00';
 										}
 									}else{
-										echo '0.00';
+										echo $currency_sign . '0.00';
 									}
 							?>
 						</td>
@@ -352,9 +355,9 @@ $sibs_result2 = $wpdb->get_results( "SELECT * FROM {$tbl_sheet} WHERE sibs_key =
 							<?php
 								$tdm = $tdm1+$tdm2+$tdm3+$tdm4;
 								if ($tdm == 0) {
-									echo '0.00';
+									echo $currency_sign . '0.00';
 								}else{
-									echo $tdm;
+									echo $currency_sign . $tdm;
 								}
 							?>
 						</td>

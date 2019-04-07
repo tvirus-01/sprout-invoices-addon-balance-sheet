@@ -10,7 +10,7 @@ foreach ($inv_result as $key) {
 	$invoice_date = explode(' ', $invoice_date);
 	$invoice_date = $invoice_date[0];
 
-	$inv_chk = $wpdb->get_results( "SELECT * FROM `{$tbl_sheet}` WHERE invoice_id = {$invoice_id}" );
+	$inv_res = $wpdb->get_results( "SELECT * FROM `{$tbl_sheet}` WHERE invoice_id = {$invoice_id}" );
 	$inv_chk = $wpdb->num_rows;
 	$tbl_sheet;	
 
